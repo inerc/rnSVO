@@ -2,6 +2,86 @@ import React, {Component} from 'react';
 import {FlatList, View, StyleSheet} from 'react-native';
 import {PersonListItem} from '../components/PersonListItem';
 
+const tasks = [
+  {
+    login: {
+      uuid: 1,
+    },
+    title: 'Уборка снега',
+    description:
+      'Необходимо произвестти уборку снега с учетом погодных уловий и наличия техники',
+    deadLineTime: '2016-06-22',
+    status: 'Назначено',
+    admin: 'Алексей',
+  },
+  {
+    login: {
+      uuid: 2,
+    },
+    title: 'Уборка снега',
+    description:
+      'Необходимо произвестти уборку снега с учетом погодных уловий и наличия техники',
+    deadLineTime: '2016-06-22',
+    status: 'Назначено',
+    admin: 'Алексей',
+  },
+  {
+    login: {
+      uuid: 3,
+    },
+    title: 'Уборка снега',
+    description:
+      'Необходимо произвестти уборку снега с учетом погодных уловий и наличия техники',
+    deadLineTime: '2016-06-22',
+    status: 'Назначено',
+    admin: 'Алексей',
+  },
+  {
+    login: {
+      uuid: 4,
+    },
+    title: 'Уборка снега',
+    description:
+      'Необходимо произвестти уборку снега с учетом погодных уловий и наличия техники',
+    deadLineTime: '2016-06-22',
+    status: 'Назначено',
+    admin: 'Алексей',
+  },
+  {
+    login: {
+      uuid: 5,
+    },
+    title: 'Уборка снега',
+    description:
+      'Необходимо произвестти уборку снега с учетом погодных уловий и наличия техники',
+    deadLineTime: '2016-06-22',
+    status: 'Назначено',
+    admin: 'Алексей',
+  },
+  {
+    login: {
+      uuid: 6,
+    },
+    title: 'Уборка снега',
+    description:
+      'Необходимо произвестти уборку снега с учетом погодных уловий и наличия техники',
+    deadLineTime: '2016-06-22',
+    status: 'Назначено',
+    admin: 'Алексей',
+  },
+  {
+    login: {
+      uuid: 87,
+    },
+    title: 'Уборка снега',
+    description:
+      'Необходимо произвестти уборку снега с учетом погодных уловий и наличия техники',
+    deadLineTime: '2016-06-22',
+    status: 'Назначено',
+    admin: 'Алексей',
+  },
+];
+
 export class PersonListScreen extends Component {
   state = {
     list: [],
@@ -21,8 +101,8 @@ export class PersonListScreen extends Component {
       .then(json => {
         this.setState({
           list: isRefreshing
-            ? json.results
-            : this.state.list.concat(json.results),
+            ? tasks
+            : this.state.list.concat(tasks),
         });
       })
       .catch(e => {
@@ -39,7 +119,7 @@ export class PersonListScreen extends Component {
   };
 
   onItemPress = item => {
-    this.props.navigation.navigate('info', {person: item});
+    this.props.navigation.navigate('engineer/list/tasks/info', {person: item});
   };
 
   keyExtractor = person => person.login.uuid;

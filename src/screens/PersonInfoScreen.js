@@ -17,16 +17,16 @@ export class PersonInfoScreen extends Component {
     return (
       <View style={styles.container}>
         <Image
-          source={{uri: person.picture.large}}
+          source={require('../assets/img/avatar.png')}
           style={styles.avatar}
           resizeMode={'contain'}
         />
         {this.renderRow([
-          {title: 'login', value: person.login.username},
-          {title: 'name', value: person.name.first},
-          {title: 'surname', value: person.name.last},
-          {title: 'email', value: person.email},
-          {title: 'phone', value: person.cell},
+          {title: 'login', value: person.title},
+          {title: 'description', value: person.description},
+          {title: 'deadLineTime', value: person.deadLineTime},
+          {title: 'status', value: person.status},
+          {title: 'admin', value: person.admin},
         ])}
       </View>
     );
