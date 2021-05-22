@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const EngeneerLoginScreen = ({ navigation }) => {
+const EngeneerLoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,7 +19,10 @@ const EngeneerLoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require('../../assets/img/SVO_logo.png')} />
+      <Image
+        style={styles.image}
+        source={require('../../assets/img/SVO_logo.png')}
+      />
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}

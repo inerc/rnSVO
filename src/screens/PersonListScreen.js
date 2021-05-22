@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {FlatList, View, StyleSheet} from 'react-native';
+import {FlatList, View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {PersonListItem} from '../components/PersonListItem';
 
 const tasks = [
   {
     login: {
-      uuid: 1,
+      uuid: '1',
     },
     title: 'Уборка снега',
     description:
@@ -16,7 +16,7 @@ const tasks = [
   },
   {
     login: {
-      uuid: 2,
+      uuid: '2',
     },
     title: 'Уборка снега',
     description:
@@ -27,7 +27,7 @@ const tasks = [
   },
   {
     login: {
-      uuid: 3,
+      uuid: '3',
     },
     title: 'Уборка снега',
     description:
@@ -38,7 +38,7 @@ const tasks = [
   },
   {
     login: {
-      uuid: 4,
+      uuid: '4',
     },
     title: 'Уборка снега',
     description:
@@ -49,7 +49,7 @@ const tasks = [
   },
   {
     login: {
-      uuid: 5,
+      uuid: '5',
     },
     title: 'Уборка снега',
     description:
@@ -60,7 +60,7 @@ const tasks = [
   },
   {
     login: {
-      uuid: 6,
+      uuid: '6',
     },
     title: 'Уборка снега',
     description:
@@ -71,7 +71,7 @@ const tasks = [
   },
   {
     login: {
-      uuid: 87,
+      uuid: '87',
     },
     title: 'Уборка снега',
     description:
@@ -100,9 +100,7 @@ export class PersonListScreen extends Component {
       .then(r => r.json())
       .then(json => {
         this.setState({
-          list: isRefreshing
-            ? tasks
-            : this.state.list.concat(tasks),
+          list: tasks
         });
       })
       .catch(e => {
@@ -118,8 +116,8 @@ export class PersonListScreen extends Component {
     this.getMoreData(false);
   };
 
-  onItemPress = item => {
-    this.props.navigation.navigate('engineer/list/tasks/info', {person: item});
+  onItemPress = (item, path) => {
+    this.props.navigation.navigate(path, {person: item});
   };
 
   keyExtractor = person => person.login.uuid;
@@ -128,7 +126,7 @@ export class PersonListScreen extends Component {
     return (
       <PersonListItem
         person={item}
-        onPress={this.onItemPress.bind(this, item)}
+        onPress={this.onItemPress.bind(this, item, 'engineer/list/tasks/info')}
       />
     );
   };
@@ -137,18 +135,32 @@ export class PersonListScreen extends Component {
     const {isLoading, list} = this.state;
 
     return (
-      <View style={styles.container}>
-        <FlatList
-          style={styles.list}
-          data={list}
-          renderItem={this.renderItem}
-          keyExtractor={this.keyExtractor}
-          refreshing={isLoading}
-          onRefresh={this.onRefresh}
-          onEndReached={this.onScrollToEnd}
-          onEndReachedThreshold={0.2}
-        />
-      </View>
+      <>
+        <Text style={stylesButton.appText}>Список поставленных вами задач</Text>
+        <View style={styles.container}>
+          <FlatList
+            style={styles.list}
+            data={list}
+            renderItem={this.renderItem}
+            keyExtractor={this.keyExtractor}
+            refreshing={isLoading}
+            onRefresh={this.onRefresh}
+            onEndReached={this.onScrollToEnd}
+            onEndReachedThreshold={0.2}
+          />
+        </View>
+        <TouchableOpacity style={stylesButton.appButtonContainer}>
+          <Text
+            onPress={this.onItemPress.bind(
+              this,
+              null,
+              'engineer/list/tasks/create',
+            )}
+            style={stylesButton.appButtonText}>
+            Создать задачу
+          </Text>
+        </TouchableOpacity>
+      </>
     );
   };
 }
@@ -156,5 +168,30 @@ export class PersonListScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+});
+
+const stylesButton = StyleSheet.create({
+  appButtonContainer: {
+    elevation: 8,
+    backgroundColor: '#009688',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    margin: 30,
+  },
+  appButtonText: {
+    fontSize: 18,
+    color: '#fff',
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    textTransform: 'uppercase',
+  },
+  appText: {
+    fontSize: 18,
+    color: '#000',
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    textTransform: 'uppercase',
   },
 });
